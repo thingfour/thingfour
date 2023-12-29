@@ -1,0 +1,17 @@
+Bridge modbus:tcp:wago [ host="192.168.2.9", port=502, id=1 ] {
+
+  Bridge poller wago_slave1 [ start=12288, length=128, refresh=500, type="coil" ] {
+    Thing data wago_s1_000 [ readStart="12288", readValueType="bit", writeStart="12288", writeValueType="bit", writeType="coil" ]
+    Thing data wago_s1_001 [ readStart="12289", readValueType="bit", writeStart="12289", writeValueType="bit", writeType="coil" ]
+  }
+
+  Bridge poller wago_slave2 [ start=12338, length=100, refresh=4000, type="holding" ] {
+  }
+
+  Bridge poller wago_slave3 [ start=12438, length=100, refresh=5000, type="holding" ] {
+  }
+
+  Bridge poller wago_slave4 [ start=12538, length=100, refresh=10000, type="holding" ] {
+  }
+
+}
