@@ -22,47 +22,28 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>bom</artifactId>
     <version>3.0.0-SNAPSHOT</version>
-    <relativePath>../parent/pom.xml</relativePath>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>tools</artifactId>
-  <packaging>pom</packaging>
+  <groupId>org.thing4.bom</groupId>
+  <artifactId>org.thing4.dependencies.units-si</artifactId>
 
-  <name>Thing4 - Tools</name>
-  <description>Tools.</description>
+  <name>Thing4 - BOM - Dependencies - Units SI</name>
+  <description>Dependency aggregation module bringing SI measures into compile scope.</description>
 
-  <!--
-  <modules>
-    <module>thing4-maven-plugin</module>
-  </modules>
-  -->
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.8.2</version>
-        <executions>
-          <execution>
-            <id>mojo-descriptor</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>descriptor</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>help-goal</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>helpmojo</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.thing4.bom</groupId>
+      <artifactId>org.thing4.dependencies.units</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>tec.uom</groupId>
+      <artifactId>uom-se</artifactId>
+      <version>${unit-se.version}</version>
+    </dependency>
+  </dependencies>
 
 </project>

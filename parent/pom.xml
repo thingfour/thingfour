@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- - Copyright (C) 2023-2023 ConnectorIO Sp. z o.o.
+ - Copyright (C) 2023-2024 ConnectorIO Sp. z o.o.
  -
  - Licensed under the Apache License, Version 2.0 (the "License");
  - you may not use this file except in compliance with the License.
@@ -54,6 +54,7 @@
     <connectorio-testcontainers.version>0.1.0</connectorio-testcontainers.version>
     <testcontainers.version>1.17.6</testcontainers.version>
     <antlr4.version>4.13.1</antlr4.version>
+    <xtext.version>2.23.0</xtext.version>
   </properties>
 
   <dependencyManagement>
@@ -94,7 +95,6 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -225,32 +225,6 @@
           </executions>
         </plugin>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>xml-maven-plugin</artifactId>
-          <version>1.1.0</version>
-          <configuration>
-            <validationSets>
-              <validationSet>
-                <dir>src/main/resources/OH-INF/</dir>
-                <includes>
-                  <include>**/*.xml</include>
-                </includes>
-                <validating>true</validating>
-              </validationSet>
-            </validationSets>
-            <catalogHadling>strict</catalogHadling>
-            <catalogs>
-              <catalog>file:${project.basedir}/../../xsd/org.connectorio.xsd.openhab/src/main/resources/openhab-catalog.xml</catalog>
-            </catalogs>
-          </configuration>
-          <executions>
-            <execution>
-              <id>default</id>
-              <phase>none</phase>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
           <groupId>org.apache.karaf.tooling</groupId>
           <artifactId>karaf-maven-plugin</artifactId>
           <version>${karaf.version}</version>
@@ -294,31 +268,6 @@
               </configuration>
             </execution>
           </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.openapitools</groupId>
-          <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>${openapi-generator.version}</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>generate</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <generatorName>connectorio-java-basic-native</generatorName>
-            <output>${project.build.directory}/openapi</output>
-            <strictSpec>false</strictSpec>
-            <skipValidateSpec>true</skipValidateSpec>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>org.connectorio.openapi.generators</groupId>
-              <artifactId>java-basic-native</artifactId>
-              <version>${connectorio-openapi-generators.version}</version>
-            </dependency>
-          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>

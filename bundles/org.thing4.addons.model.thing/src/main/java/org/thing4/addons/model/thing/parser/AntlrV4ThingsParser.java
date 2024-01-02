@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2023 ConnectorIO Sp. z o.o.
+ * Copyright (C) 2023-2024 ConnectorIO Sp. z o.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ import org.openhab.core.thing.type.ChannelTypeUID;
 import org.thing4.addons.model.thing.BridgeBuilderFactory;
 import org.thing4.addons.model.thing.ChannelBuilderFactory;
 import org.thing4.addons.model.thing.ThingBuilderFactory;
+import org.thing4.addons.model.thing.ThingFileParser;
 import org.thing4.addons.model.thing.ThingsBaseListener;
 import org.thing4.addons.model.thing.ThingsLexer;
 import org.thing4.addons.model.thing.ThingsParser;
@@ -57,7 +58,7 @@ import org.thing4.addons.model.thing.ThingsParser.UidContext;
 import org.thing4.addons.model.thing.ThingsParser.UidSegmentContext;
 import org.thing4.addons.model.thing.ThingsParser.ValueTypeContext;
 
-public class AntlrV4ThingsParser {
+public class AntlrV4ThingsParser implements ThingFileParser {
 
   private final BridgeBuilderFactory bridgeFactory;
   private final ThingBuilderFactory thingFactory;
@@ -70,10 +71,12 @@ public class AntlrV4ThingsParser {
     this.channelFactory = channelFactory;
   }
 
+  @Override
   public List<Thing> parse(byte[] contents) {
     return parse(new String(contents, StandardCharsets.UTF_8));
   }
 
+  @Override
   public List<Thing> parse(String contents) {
     ThingsLexer lexer = new ThingsLexer(CharStreams.fromString(contents));
     lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);

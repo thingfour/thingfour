@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- - Copyright (C) 2023-2023 ConnectorIO Sp. z o.o.
+ - Copyright (C) 2023-2024 ConnectorIO Sp. z o.o.
  -
  - Licensed under the Apache License, Version 2.0 (the "License");
  - you may not use this file except in compliance with the License.
@@ -36,8 +36,12 @@
   <description>Thing 4 is an independent set of tools aimed to help with development of third party addons for openHAB and openHAB compatible deployments.</description>
 
   <properties>
-    <openhab.version>3.0.4-connectorio-1</openhab.version>
+    <openhab.version>3.0.4</openhab.version>
     <openhab-distro.version>3.0.4</openhab-distro.version>
+
+    <!-- bom related -->
+    <unit-api.version>1.0</unit-api.version>
+    <unit-se.version>1.0.10</unit-se.version>
 
     <snapshot.repository-id>co7io-public-snapshots</snapshot.repository-id>
     <snapshot.repository-name>ConnectorIO Public Snapshots</snapshot.repository-name>

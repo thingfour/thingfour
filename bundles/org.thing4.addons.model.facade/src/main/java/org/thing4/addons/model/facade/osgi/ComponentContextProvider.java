@@ -15,16 +15,25 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.addons.model.thing.factory;
+package org.thing4.addons.model.facade.osgi;
 
-import org.openhab.core.thing.ThingTypeUID;
-import org.openhab.core.thing.binding.builder.BridgeBuilder;
-import org.thing4.addons.model.thing.BridgeBuilderFactory;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import org.osgi.framework.BundleContext;
+import org.osgi.service.component.ComponentContext;
 
-public class DefaultBridgeBuilderFactory implements BridgeBuilderFactory {
+public class ComponentContextProvider implements Provider<ComponentContext> {
+
+  private Provider<BundleContext> bundleContext;
+
+  @Inject
+  public ComponentContextProvider(Provider<BundleContext> bundleContext) {
+    this.bundleContext = bundleContext;
+  }
 
   @Override
-  public BridgeBuilder create(String type, String id) {
-    return BridgeBuilder.create(new ThingTypeUID(type), id);
+  public ComponentContext get() {
+    return new DummyComponentContext(bundleContext.get());
   }
+
 }
