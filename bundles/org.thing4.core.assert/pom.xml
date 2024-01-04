@@ -22,22 +22,32 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>addons</artifactId>
     <version>3.0.0-SNAPSHOT</version>
-    <relativePath>../parent/pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>addons</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>org.thing4.core.assert</artifactId>
+  <packaging>jar</packaging>
 
-  <name>Thing4 - Addons</name>
-  <description>Third party addon bundles for openHAB.</description>
+  <name>Thing4 - Core - Assert</name>
+  <description>Assertions to verify data kept by model/core classes.</description>
 
-  <modules>
-    <module>org.thing4.core.assert</module>
-    <module>org.thing4.core.model.facade</module>
-    <module>org.thing4.core.parser</module>
-    <module>org.thing4.core.parser.thing</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>org.openhab.core.bundles</groupId>
+      <artifactId>org.openhab.core.thing</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.openhab.core.bundles</groupId>
+      <artifactId>org.openhab.core.config.core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 
 </project>

@@ -33,11 +33,9 @@
   <name>Thing4 - Tools</name>
   <description>Tools.</description>
 
-  <!--
   <modules>
     <module>thing4-maven-plugin</module>
   </modules>
-  -->
 
   <build>
     <plugins>
