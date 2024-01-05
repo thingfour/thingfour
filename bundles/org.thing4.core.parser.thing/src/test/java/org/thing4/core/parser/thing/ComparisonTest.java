@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ import org.thing4.core.model.facade.ThingParserFacade;
 import org.thing4.core.parser.thing.factory.DefaultBridgeBuilderFactory;
 import org.thing4.core.parser.thing.factory.DefaultChannelBuilderFactory;
 import org.thing4.core.parser.thing.factory.DefaultThingBuilderFactory;
-import org.thing4.core.parser.thing.parser.AntlrV4ThingsParser;
+import org.thing4.core.parser.thing.writer.BasicThingWriter;
 
 public class ComparisonTest {
 
@@ -64,11 +65,11 @@ public class ComparisonTest {
 
     compare(officialThings, thing4Things);
 
-//    byte[] output = new BasicWriter().write(new ArrayList<>(officialThings.values()));
-//    System.out.println(new String(output));
-//    Map<UID, Thing> things = thing4parser.parse(output).stream()
-//        .collect(Collectors.toMap(v -> v.getUID(), v -> v));
-//    compare(officialThings, things);
+    byte[] output = new BasicThingWriter().write(new ArrayList<>(officialThings.values()));
+    System.out.println(new String(output));
+    Map<UID, Thing> things = thing4parser.parse(output).stream()
+      .collect(Collectors.toMap(v -> v.getUID(), v -> v));
+    compare(officialThings, things);
   }
 
   private static void compare(Map<UID, Thing> reference, Map<UID, Thing> target) {

@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.core.parser.thing.parser;
+package org.thing4.core.parser.thing;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -42,18 +42,13 @@ import org.openhab.core.thing.binding.builder.ThingBuilder;
 import org.openhab.core.thing.type.AutoUpdatePolicy;
 import org.openhab.core.thing.type.ChannelKind;
 import org.openhab.core.thing.type.ChannelTypeUID;
-import org.thing4.core.parser.thing.BridgeBuilderFactory;
-import org.thing4.core.parser.thing.ChannelBuilderFactory;
-import org.thing4.core.parser.thing.ThingBuilderFactory;
-import org.thing4.core.parser.thing.ThingsBaseListener;
-import org.thing4.core.parser.thing.ThingsLexer;
-import org.thing4.core.parser.thing.ThingsParser;
 import org.thing4.core.parser.thing.ThingsParser.ModelBridgeContext;
 import org.thing4.core.parser.thing.ThingsParser.ModelChannelContext;
-import org.thing4.core.parser.thing.ThingsParser.ModelParentContext;
 import org.thing4.core.parser.thing.ThingsParser.ModelPropertiesContext;
 import org.thing4.core.parser.thing.ThingsParser.ModelPropertyContext;
 import org.thing4.core.parser.thing.ThingsParser.ModelThingContext;
+import org.thing4.core.parser.thing.ThingsParser.NestedBridgeContext;
+import org.thing4.core.parser.thing.ThingsParser.NestedThingContext;
 import org.thing4.core.parser.thing.ThingsParser.UidContext;
 import org.thing4.core.parser.thing.ThingsParser.UidSegmentContext;
 import org.thing4.core.parser.thing.ThingsParser.ValueTypeContext;
@@ -61,6 +56,7 @@ import org.thing4.core.parser.thing.factory.DefaultBridgeBuilderFactory;
 import org.thing4.core.parser.thing.factory.DefaultChannelBuilderFactory;
 import org.thing4.core.parser.thing.factory.DefaultThingBuilderFactory;
 import org.thing4.core.parser.Parser;
+import org.thing4.core.parser.thing.antlr.ThingsErrorListener;
 
 public class AntlrV4ThingsParser implements Parser<Thing> {
 
@@ -137,24 +133,21 @@ public class AntlrV4ThingsParser implements Parser<Thing> {
 
     @Override
     public void enterModelThing(ModelThingContext ctx) {
-      String thingId = null;
-      ThingTypeUID thingType = null;
-      ThingBuilder thingBuilder = null;
       ThingUID parent = resolveParent();
-      if (ctx.id != null) {
-        String[] uid = uid(ctx.id);
-        thingType = new ThingTypeUID(uid[0], uid[1]);
-        thingId = uid[uid.length - 1];
-      }
-      if (ctx.thingTypeId != null) {
-        thingType = parent == null ? new ThingTypeUID(ctx.thingTypeId.getText()) : new ThingTypeUID(parent.getBindingId(), ctx.thingTypeId.getText());
-        thingId = ctx.thingId.getText();
+      if (parent != null) {
+        throw new IllegalArgumentException("Thing which defines type can't be nested");
       }
 
-      ThingUID uid = parent == null ? new ThingUID(thingType, thingId) : new ThingUID(thingType, parent, thingId);
-      thingBuilder = thingFactory.create(thingType, uid);
-      populate(thingBuilder, parent, ctx.parent, ctx.label, ctx.location, ctx.properties);
-      stack.addLast(new StackEntry(uid, thingBuilder));
+      String[] uid = uid(ctx.uid());
+      ThingUID thingId = new ThingUID(ctx.uid().getText());
+      ThingTypeUID thingType = new ThingTypeUID(uid[0], uid[1]);
+      ThingBuilder thingBuilder = thingFactory.create(thingType, thingId);
+
+      if (ctx.parent != null) {
+        parent = new ThingUID(ctx.parent.id.getText());
+      }
+      populate(thingBuilder, parent, ctx.label, ctx.thing.location, ctx.thing.properties);
+      stack.addLast(new StackEntry(thingId, thingBuilder));
     }
 
     @Override
@@ -163,29 +156,66 @@ public class AntlrV4ThingsParser implements Parser<Thing> {
     }
 
     @Override
-    public void enterModelBridge(ModelBridgeContext ctx) {
-      BridgeBuilder bridgeBuilder = null;
-      String bridgeId = null;
-      ThingTypeUID thingType = null;
+    public void enterNestedThing(NestedThingContext ctx) {
       ThingUID parent = resolveParent();
-      if (ctx.id != null) {
-        String[] uid = uid(ctx.id);
-        thingType = new ThingTypeUID(uid[0], uid[1]);
-        bridgeId = uid[uid.length - 1];
-      }
-      if (ctx.thingTypeId != null) {
-        thingType = parent == null ? new ThingTypeUID(ctx.thingTypeId.getText()) : new ThingTypeUID(parent.getBindingId(), ctx.thingTypeId.getText());
-        bridgeId = ctx.thingId.getText();
+      if (parent == null) {
+        throw new IllegalArgumentException("Nested Thing must reside within Bridge");
       }
 
-      ThingUID uid = parent == null ? new ThingUID(thingType, bridgeId) : new ThingUID(thingType, parent, bridgeId);
-      bridgeBuilder = bridgeFactory.create(thingType, uid);
-      populate(bridgeBuilder, parent, ctx.parent, ctx.label, ctx.location, ctx.properties);
-      stack.addLast(new StackEntry(uid, bridgeBuilder));
+      ThingTypeUID thingType = new ThingTypeUID(parent.getBindingId(), ctx.thingTypeId.getText());
+      ThingUID thingId = new ThingUID(thingType, parent, ctx.id.getText());
+      ThingBuilder thingBuilder = thingFactory.create(thingType, thingId);
+
+      populate(thingBuilder, parent, ctx.label, ctx.thing.location, ctx.thing.properties);
+      stack.addLast(new StackEntry(thingId, thingBuilder));
+    }
+
+    @Override
+    public void exitNestedThing(NestedThingContext ctx) {
+      consumer.accept(stack.removeLast().builder.build());
+    }
+
+    @Override
+    public void enterModelBridge(ModelBridgeContext ctx) {
+      ThingUID parent = resolveParent();
+      if (parent != null) {
+        throw new IllegalArgumentException("Thing which defines type can't be nested");
+      }
+
+      String[] uid = uid(ctx.uid());
+      ThingUID bridgeId = new ThingUID(ctx.uid().getText());
+      ThingTypeUID thingType = new ThingTypeUID(uid[0], uid[1]);
+      BridgeBuilder bridgeBuilder = bridgeFactory.create(thingType, bridgeId);
+
+      if (ctx.parent != null) {
+        parent = new ThingUID(ctx.parent.id.getText());
+      }
+      populate(bridgeBuilder, parent, ctx.label, ctx.bridge.location, ctx.bridge.properties);
+      stack.addLast(new StackEntry(bridgeId, bridgeBuilder));
     }
 
     @Override
     public void exitModelBridge(ModelBridgeContext ctx) {
+      consumer.accept(stack.removeLast().builder.build());
+    }
+
+    @Override
+    public void enterNestedBridge(NestedBridgeContext ctx) {
+      ThingUID parent = resolveParent();
+      if (parent == null) {
+        throw new IllegalArgumentException("Nested Bridge must reside within Bridge");
+      }
+
+      ThingTypeUID thingType = new ThingTypeUID(parent.getBindingId(), ctx.thingTypeId.getText());
+      ThingUID bridgeId = new ThingUID(thingType, parent, ctx.id.getText());
+      BridgeBuilder bridgeBuilder = bridgeFactory.create(thingType, bridgeId);
+
+      populate(bridgeBuilder, parent, ctx.label, ctx.bridge.location, ctx.bridge.properties);
+      stack.addLast(new StackEntry(bridgeId, bridgeBuilder));
+    }
+
+    @Override
+    public void exitNestedBridge(NestedBridgeContext ctx) {
       consumer.accept(stack.removeLast().builder.build());
     }
 
@@ -222,10 +252,7 @@ public class AntlrV4ThingsParser implements Parser<Thing> {
       stack.element().builder.withChannel(channel);
     }
 
-    private void populate(ThingBuilder bridgeBuilder, ThingUID parent, ModelParentContext declaredParent, Token label, Token location, ModelPropertiesContext properties) {
-      if (declaredParent != null) {
-        bridgeBuilder.withBridge(new ThingUID(declaredParent.uid().getText()));
-      }
+    private void populate(ThingBuilder bridgeBuilder, ThingUID parent, Token label, Token location, ModelPropertiesContext properties) {
       if (parent != null) {
         bridgeBuilder.withBridge(parent);
       }

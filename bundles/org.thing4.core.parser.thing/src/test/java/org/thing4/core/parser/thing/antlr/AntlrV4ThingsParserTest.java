@@ -15,13 +15,14 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.core.parser.thing.parser;
+package org.thing4.core.parser.thing.antlr;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.openhab.core.thing.Thing;
+import org.thing4.core.parser.thing.AntlrV4ThingsParser;
 import org.thing4.core.parser.thing.factory.DefaultBridgeBuilderFactory;
 import org.thing4.core.parser.thing.factory.DefaultChannelBuilderFactory;
 import org.thing4.core.parser.thing.factory.DefaultThingBuilderFactory;

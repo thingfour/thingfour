@@ -15,4 +15,4 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-org.thing4.core.parser.thing.parser.AntlrV4ThingsParser
+org.thing4.core.parser.thing.AntlrV4ThingsParser

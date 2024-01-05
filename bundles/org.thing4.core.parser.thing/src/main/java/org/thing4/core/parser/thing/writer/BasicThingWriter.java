@@ -27,7 +27,7 @@ import org.openhab.core.thing.Channel;
 import org.openhab.core.thing.Thing;
 import org.thing4.core.parser.Writer;
 
-public class BasicWriter implements Writer<Thing> {
+public class BasicThingWriter implements Writer<Thing> {
 
   @Override
   public String getId() {

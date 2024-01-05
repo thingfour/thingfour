@@ -28,28 +28,52 @@ things
 
 modelBridge
   :
-  BRIDGE (id=uid | thingTypeId=uidSegment thingId=uidSegment)
+  BRIDGE id=uid
   label=STRING?
   parent=modelParent?
+  bridge=bridgeDefinition
+  ;
+
+nestedBridge
+  :
+  BRIDGE thingTypeId=uidSegment id=uidSegment
+  label=STRING?
+  bridge=bridgeDefinition
+  ;
+
+bridgeDefinition
+  :
   (LOCATION location=STRING)?
   properties=modelProperties?
   (
     L_BRACE
-    modelThings
+    nestedThings
     modelChannels
     R_BRACE
   )?
   ;
 
-modelThings
-  : THINGS? ( modelThing | modelBridge )*
+nestedThings
+  : THINGS? ( nestedThing | nestedBridge )*
   ;
 
 modelThing
   :
-  THING ( id=uid | thingTypeId=uidSegment thingId=uidSegment )
+  THING id=uid
   label=STRING?
   parent=modelParent?
+  thing=thingDefinition
+  ;
+
+nestedThing
+  :
+  THING thingTypeId=uidSegment id=uidSegment
+  label=STRING?
+  thing=thingDefinition
+  ;
+
+thingDefinition
+  :
   (LOCATION location=STRING)?
   properties=modelProperties?
   (
@@ -60,7 +84,7 @@ modelThing
   ;
 
 modelParent
-  : L_PAREN parent=uid R_PAREN
+  : L_PAREN id=uid R_PAREN
   ;
 
 modelChannels
