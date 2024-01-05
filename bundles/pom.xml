@@ -38,6 +38,7 @@
     <module>org.thing4.core.model.facade</module>
     <module>org.thing4.core.parser</module>
     <module>org.thing4.core.parser.thing</module>
+    <module>org.thing4.core.parser.thing.yaml</module>
   </modules>
 
 </project>

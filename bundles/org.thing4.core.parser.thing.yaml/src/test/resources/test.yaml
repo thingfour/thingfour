@@ -1,0 +1,50 @@
+things:
+  - kind: Bridge
+    thingTypeUID: mqtt:broker
+    id: myInsecureBroker
+    configuration:
+      host: "192.168.0.42"
+      secure: false
+
+  - kind: Thing
+    UID: mqtt:topic:mything
+    label: "mything"
+    bridgeUID: mqtt:broker:myInsecureBroker
+    channels:
+      - id: lamp
+        type: switch
+        label: "Kitchen Lamp"
+        configuration:
+          stateTopic: "lamp/enabled"
+          commandTopic: "lamp/enabled/set"
+      - id: fancylamp
+        type: switch
+        label: "Fancy Lamp"
+        configuration:
+          stateTopic: "fancy/lamp/state"
+          commandTopic: "fancy/lamp/command"
+          on: "i-am-on"
+          off: "i-am-off"
+      - id: alarmpanel
+        type: string
+        label: "Alarm system"
+        configuration:
+          stateTopic: "alarm/panel/state"
+          commandTopic: "alarm/panel/set"
+          allowedStates: "ARMED_HOME,ARMED_AWAY,UNARMED"
+      - id: lampcolor
+        type: color
+        label: "Kitchen Lamp color"
+        configuration:
+          stateTopic: "lamp/color"
+          commandTopic: "lamp/color/set"
+          colorMode: "RGB"
+      - id: blind
+        type: dimmer
+        label: "Blind"
+        configuration:
+          stateTopic: "blind/state"
+          commandTopic: "blind/set"
+          min: 0
+          max: 5
+          step: 1
