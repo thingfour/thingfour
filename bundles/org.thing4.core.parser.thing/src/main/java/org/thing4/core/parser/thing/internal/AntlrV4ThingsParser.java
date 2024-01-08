@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.core.parser.thing;
+package org.thing4.core.parser.thing.internal;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -42,6 +42,13 @@ import org.openhab.core.thing.binding.builder.ThingBuilder;
 import org.openhab.core.thing.type.AutoUpdatePolicy;
 import org.openhab.core.thing.type.ChannelKind;
 import org.openhab.core.thing.type.ChannelTypeUID;
+import org.osgi.service.component.annotations.Component;
+import org.thing4.core.parser.thing.BridgeBuilderFactory;
+import org.thing4.core.parser.thing.ChannelBuilderFactory;
+import org.thing4.core.parser.thing.ThingBuilderFactory;
+import org.thing4.core.parser.thing.ThingsBaseListener;
+import org.thing4.core.parser.thing.ThingsLexer;
+import org.thing4.core.parser.thing.ThingsParser;
 import org.thing4.core.parser.thing.ThingsParser.ModelBridgeContext;
 import org.thing4.core.parser.thing.ThingsParser.ModelChannelContext;
 import org.thing4.core.parser.thing.ThingsParser.ModelPropertiesContext;
@@ -52,13 +59,18 @@ import org.thing4.core.parser.thing.ThingsParser.NestedThingContext;
 import org.thing4.core.parser.thing.ThingsParser.UidContext;
 import org.thing4.core.parser.thing.ThingsParser.UidSegmentContext;
 import org.thing4.core.parser.thing.ThingsParser.ValueTypeContext;
-import org.thing4.core.parser.thing.factory.DefaultBridgeBuilderFactory;
-import org.thing4.core.parser.thing.factory.DefaultChannelBuilderFactory;
-import org.thing4.core.parser.thing.factory.DefaultThingBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultBridgeBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultChannelBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultThingBuilderFactory;
 import org.thing4.core.parser.Parser;
-import org.thing4.core.parser.thing.antlr.ThingsErrorListener;
+import org.thing4.core.parser.thing.internal.antlr.ThingsErrorListener;
 
+@Component(service = Parser.class, property = {
+    "type=" + AntlrV4ThingsParser.ID
+})
 public class AntlrV4ThingsParser implements Parser<Thing> {
+
+  public static final String ID = "thing4";
 
   private final BridgeBuilderFactory bridgeFactory;
   private final ThingBuilderFactory thingFactory;
@@ -77,7 +89,7 @@ public class AntlrV4ThingsParser implements Parser<Thing> {
 
   @Override
   public String getId() {
-    return "thing4";
+    return ID;
   }
 
   @Override

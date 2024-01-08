@@ -15,4 +15,4 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-org.thing4.core.parser.thing.yaml.internal.YamlThingParser
+org.thing4.core.parser.thing.yaml.internal.YamlThingWriter

@@ -15,17 +15,17 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.core.parser.thing.factory;
+package org.thing4.core.parser.thing.internal.factory;
 
 import org.openhab.core.thing.ThingTypeUID;
 import org.openhab.core.thing.ThingUID;
-import org.openhab.core.thing.binding.builder.ThingBuilder;
-import org.thing4.core.parser.thing.ThingBuilderFactory;
+import org.openhab.core.thing.binding.builder.BridgeBuilder;
+import org.thing4.core.parser.thing.BridgeBuilderFactory;
 
-public class DefaultThingBuilderFactory implements ThingBuilderFactory {
+public class DefaultBridgeBuilderFactory implements BridgeBuilderFactory {
 
   @Override
-  public ThingBuilder create(ThingTypeUID type, ThingUID id) {
-    return ThingBuilder.create(type, id);
+  public BridgeBuilder create(ThingTypeUID type, ThingUID id) {
+    return BridgeBuilder.create(type, id);
   }
 }

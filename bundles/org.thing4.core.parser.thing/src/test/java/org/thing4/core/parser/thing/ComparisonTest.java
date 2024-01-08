@@ -34,10 +34,11 @@ import org.openhab.core.thing.Thing;
 import org.openhab.core.thing.UID;
 import org.thing4.addons.core.assertions.ThingAssertion;
 import org.thing4.core.model.facade.ThingParserFacade;
-import org.thing4.core.parser.thing.factory.DefaultBridgeBuilderFactory;
-import org.thing4.core.parser.thing.factory.DefaultChannelBuilderFactory;
-import org.thing4.core.parser.thing.factory.DefaultThingBuilderFactory;
-import org.thing4.core.parser.thing.writer.BasicThingWriter;
+import org.thing4.core.parser.thing.internal.factory.DefaultBridgeBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultChannelBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultThingBuilderFactory;
+import org.thing4.core.parser.thing.internal.AntlrV4ThingsParser;
+import org.thing4.core.parser.thing.internal.BasicThingWriter;
 
 public class ComparisonTest {
 

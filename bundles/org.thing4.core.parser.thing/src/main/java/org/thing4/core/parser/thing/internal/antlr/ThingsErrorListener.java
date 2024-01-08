@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.core.parser.thing.antlr;
+package org.thing4.core.parser.thing.internal.antlr;
 
 import java.util.BitSet;
 import org.antlr.v4.runtime.ANTLRErrorListener;

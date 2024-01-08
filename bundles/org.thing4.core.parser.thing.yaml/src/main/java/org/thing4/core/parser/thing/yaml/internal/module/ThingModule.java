@@ -1,4 +1,21 @@
-package org.thing4.core.parser.thing.yaml.module;
+/*
+ * Copyright (C) 2023-2024 ConnectorIO Sp. z o.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+package org.thing4.core.parser.thing.yaml.internal.module;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -22,9 +39,8 @@ import org.openhab.core.thing.Thing;
 import org.openhab.core.thing.ThingTypeUID;
 import org.openhab.core.thing.ThingUID;
 import org.openhab.core.thing.type.ChannelTypeUID;
-import org.thing4.core.parser.thing.yaml.module.ChannelHandler.ChannelDeserializer;
-import org.thing4.core.parser.thing.yaml.module.ChannelHandler.ChannelSerializer;
-import org.thing4.core.parser.thing.yaml.module.ThingHandler.Deserializer;
+import org.thing4.core.parser.thing.yaml.internal.module.ChannelHandler.ChannelDeserializer;
+import org.thing4.core.parser.thing.yaml.internal.module.ChannelHandler.ChannelSerializer;
 
 public class ThingModule extends SimpleModule {
 
@@ -32,7 +48,7 @@ public class ThingModule extends SimpleModule {
   private Object any;
 
   public ThingModule(InjectableValues.Std injectableValues) {
-    addDeserializer(Thing.class, new ThingHandler.Deserializer(injectableValues));
+    addDeserializer(ThingNode.class, new ThingHandler.Deserializer(injectableValues));
     addSerializer(new ThingHandler.Serializer());
     addDeserializer(Channel.class, new ChannelDeserializer(injectableValues));
     addSerializer(new ChannelSerializer());
@@ -76,5 +92,6 @@ public class ThingModule extends SimpleModule {
   }
 
   static class Channels extends ArrayList<Channel> { }
+  static class ThingNodes extends ArrayList<ThingNode> { }
 
 }

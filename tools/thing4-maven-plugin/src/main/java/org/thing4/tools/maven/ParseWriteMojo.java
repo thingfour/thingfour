@@ -19,6 +19,7 @@ package org.thing4.tools.maven;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
@@ -32,16 +33,18 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.thing4.core.parser.Parser;
 import org.thing4.core.parser.ParserLocator;
+import org.thing4.core.parser.Writer;
+import org.thing4.core.parser.WriterLocator;
 
 /**
  * Mojo to parse DSL resources.
  */
-@Mojo(name = "parse",
+@Mojo(name = "parse-write",
   threadSafe = true,
   defaultPhase = LifecyclePhase.VALIDATE,
   requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME
 )
-public class ParseMojo extends AbstractMojo {
+public class ParseWriteMojo extends AbstractMojo {
 
   /**
    * The Maven Project.
@@ -68,12 +71,19 @@ public class ParseMojo extends AbstractMojo {
   private String parser;
 
   /**
+   * Writer identifier.
+   */
+  @Parameter(required = false, readonly = true)
+  private String writer;
+
+  /**
    * Type of parsed entity (Thing, Item, Sitemap).
    */
   @Parameter(required = true, readonly = true)
   private String type;
 
   @Override
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public void execute() throws MojoExecutionException, MojoFailureException {
     Class<?> clazz = null;
     try {
@@ -83,6 +93,10 @@ public class ParseMojo extends AbstractMojo {
     }
 
     Parser<?> fileParser = ParserLocator.locate(parser, clazz);
+    Writer<?> fileWriter = null;
+    if (writer != null) {
+      fileWriter = WriterLocator.locate(writer, clazz);
+    }
 
     DirectoryScanner scanner = new DirectoryScanner();
     scanner.setBasedir(project.getBasedir());
@@ -98,8 +112,19 @@ public class ParseMojo extends AbstractMojo {
     String[] files = scanner.getIncludedFiles();
 
     for (String file : files) {
-      try {
-        fileParser.parse(new FileInputStream(new File(project.getBasedir(), file)).readAllBytes());
+      try (FileInputStream fis = new FileInputStream(new File(project.getBasedir(), file))) {
+        List objects = fileParser.parse(fis.readAllBytes());
+        if (fileWriter != null) {
+          String fileName = file.substring(0, file.lastIndexOf("."));
+          try (FileOutputStream fos = new FileOutputStream(new File(project.getBasedir(), fileName + "." + writer))) {
+            byte[] output = fileWriter.write(objects);
+            if (output.length != 0) {
+              fos.write(output);
+            }
+          } catch (IOException e) {
+            throw new MojoExecutionException("Could not store generated content", e);
+          }
+        }
       } catch (IOException e) {
         throw new MojoFailureException("Could not parse file " + file, e);
       }

@@ -22,10 +22,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.openhab.core.thing.Thing;
-import org.thing4.core.parser.thing.AntlrV4ThingsParser;
-import org.thing4.core.parser.thing.factory.DefaultBridgeBuilderFactory;
-import org.thing4.core.parser.thing.factory.DefaultChannelBuilderFactory;
-import org.thing4.core.parser.thing.factory.DefaultThingBuilderFactory;
+import org.thing4.core.parser.thing.internal.AntlrV4ThingsParser;
+import org.thing4.core.parser.thing.internal.factory.DefaultBridgeBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultChannelBuilderFactory;
+import org.thing4.core.parser.thing.internal.factory.DefaultThingBuilderFactory;
 
 class AntlrV4ThingsParserTest {
 

@@ -1,4 +1,21 @@
-package org.thing4.core.parser.thing.yaml.module;
+/*
+ * Copyright (C) 2023-2024 ConnectorIO Sp. z o.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+package org.thing4.core.parser.thing.yaml.internal.module;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -40,6 +57,7 @@ public class ChannelHandler {
       String type = null;
       ChannelKind kind = ChannelKind.STATE;
       String label = null;
+      String description = null;
       Configuration configuration = null;
 
       String fieldName = null;
@@ -50,6 +68,8 @@ public class ChannelHandler {
           kind = ChannelKind.parse(p.nextTextValue());
         } else if ("label".equals(fieldName)) {
           label = p.nextTextValue();
+        } else if ("description".equals(fieldName)) {
+          description = p.nextTextValue();
         } else if ("type".equals(fieldName)) {
           type = p.nextTextValue();
         } else if ("configuration".equals(fieldName)) {
@@ -74,8 +94,12 @@ public class ChannelHandler {
       if (type != null) {
         channelBuilder.withType(new ChannelTypeUID(thing.getBindingId(), type));
       }
+
       if (label != null) {
         channelBuilder.withLabel(label);
+      }
+      if (description != null) {
+        channelBuilder.withDescription(description);
       }
       if (configuration != null) {
         channelBuilder.withConfiguration(configuration);
@@ -105,11 +129,11 @@ public class ChannelHandler {
       gen.writeFieldName("type");
       gen.writeString(value.getChannelTypeUID().getId());
 
-      if (value.getLabel() != null) {
+      if (value.getLabel() != null && !value.getLabel().isBlank()) {
         gen.writeFieldName("label");
         gen.writeString(value.getLabel());
       }
-      if (value.getDescription() != null) {
+      if (value.getDescription() != null && !value.getDescription().isBlank()) {
         gen.writeFieldName("description");
         gen.writeString(value.getDescription());
       }

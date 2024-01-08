@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-package org.thing4.core.parser.thing.writer;
+package org.thing4.core.parser.thing.internal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +25,17 @@ import org.openhab.core.config.core.Configuration;
 import org.openhab.core.thing.Bridge;
 import org.openhab.core.thing.Channel;
 import org.openhab.core.thing.Thing;
+import org.osgi.service.component.annotations.Component;
 import org.thing4.core.parser.Writer;
 
+@Component(service = Writer.class, property = {
+    "type=" + AntlrV4ThingsParser.ID
+})
 public class BasicThingWriter implements Writer<Thing> {
 
   @Override
   public String getId() {
-    return "thing4";
+    return AntlrV4ThingsParser.ID;
   }
 
   @Override
