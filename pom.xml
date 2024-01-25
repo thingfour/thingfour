@@ -21,9 +21,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.connectorio</groupId>
-    <artifactId>connectorio-oss</artifactId>
-    <version>3</version>
+    <groupId>org.thing4</groupId>
+    <artifactId>parent</artifactId>
+    <version>1</version>
     <relativePath />
   </parent>
 
@@ -35,59 +35,15 @@
   <name>Thing4</name>
   <description>Thing 4 is an independent set of tools aimed to help with development of third party addons for openHAB and openHAB compatible deployments.</description>
 
-  <properties>
-    <openhab.version>3.0.4</openhab.version>
-    <openhab-distro.version>3.0.4</openhab-distro.version>
-
-    <!-- bom related -->
-    <unit-api.version>1.0</unit-api.version>
-    <unit-se.version>1.0.10</unit-se.version>
-
-    <snapshot.repository-id>co7io-public-snapshots</snapshot.repository-id>
-    <snapshot.repository-name>ConnectorIO Public Snapshots</snapshot.repository-name>
-    <snapshot.repository-url>https://repository.connectorio.cloud/repository/co7io-public-snapshots/</snapshot.repository-url>
-
-    <release.repository-id>co7io-public-releases</release.repository-id>
-    <release.repository-name>ConnectorIO Public Releases</release.repository-name>
-    <release.repository-url>https://repository.connectorio.cloud/repository/co7io-public-releases/</release.repository-url>
-  </properties>
-
   <modules>
-    <module>bom</module>
     <module>parent</module>
-    <module>tools</module>
+    <module>dependencies</module>
+    <module>bddhab</module>
     <module>bundles</module>
+    <module>tools</module>
   </modules>
 
-  <scm>
-    <connection>scm:git:https://github.com/thingfour/thingfour.git</connection>
-    <developerConnection>scm:git:git@github.com:thingfour/thingfour.git</developerConnection>
-    <url>https://github.com/thingfour/thingfour</url>
-    <tag>HEAD</tag>
-  </scm>
-
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <preparationGoals>clean install</preparationGoals>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
+  <!--
   <repositories>
     <repository>
       <id>openhab-release</id>
@@ -137,5 +93,6 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
+  -->
 
 </project>

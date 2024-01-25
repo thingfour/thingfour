@@ -27,7 +27,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>parent</artifactId>
+  <artifactId>thing4-parent</artifactId>
   <packaging>pom</packaging>
 
   <name>Thing4 - Parent</name>
@@ -37,7 +37,11 @@
     <compiler.source>11</compiler.source>
     <compiler.target>11</compiler.target>
 
-    <karaf.version>4.3.9</karaf.version>
+    <bom.version>3.0.0-SNAPSHOT</bom.version>
+    <openhab.version>3.0.4</openhab.version>
+    <openhab-distro.version>3.0.4</openhab-distro.version>
+
+    <karaf.version>4.4.4</karaf.version>
 
     <slf4j.version>1.7.36</slf4j.version>
     <fasterxml-classmate.version>1.5.1</fasterxml-classmate.version>
@@ -60,11 +64,29 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.thing4.bom</groupId>
-        <artifactId>openhab-core</artifactId>
-        <version>${project.version}</version>
+        <groupId>org.thing4.openhab.bom.generated</groupId>
+        <artifactId>org.openhab.core.bom.compile</artifactId>
+        <version>${bom.version}</version>
         <scope>import</scope>
         <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4.openhab.bom.generated</groupId>
+        <artifactId>org.openhab.core.bom.openhab-core</artifactId>
+        <version>${bom.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+      <dependency>
+        <groupId>org.thing4.dependencies</groupId>
+        <artifactId>org.thing4.dependencies.units</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4.dependencies</groupId>
+        <artifactId>org.thing4.dependencies.units-si</artifactId>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>

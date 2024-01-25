@@ -22,30 +22,26 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>bom</artifactId>
+    <artifactId>dependencies</artifactId>
     <version>3.0.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.thing4.bom</groupId>
-  <artifactId>units</artifactId>
-  <packaging>pom</packaging>
+  <groupId>org.thing4.dependencies</groupId>
+  <artifactId>org.thing4.dependencies.units</artifactId>
 
-  <name>Thing4 - BOM - units</name>
-  <description>Bill of materials POM file which includes Units of Measurement artifacts.</description>
+  <name>Thing4 - BOM - Dependencies - Units</name>
+  <description>Dependency aggregation module to bring unit of measurements into compile scope.</description>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>javax.measure</groupId>
-        <artifactId>unit-api</artifactId>
-        <version>${unit-api.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>tec.uom</groupId>
-        <artifactId>uom-se</artifactId>
-        <version>${unit-se.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>javax.measure</groupId>
+      <artifactId>unit-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>tec.uom</groupId>
+      <artifactId>uom-se</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>

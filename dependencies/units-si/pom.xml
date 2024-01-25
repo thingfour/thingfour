@@ -22,12 +22,12 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>bom</artifactId>
+    <artifactId>dependencies</artifactId>
     <version>3.0.0-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.thing4.bom</groupId>
+  <groupId>org.thing4.dependencies</groupId>
   <artifactId>org.thing4.dependencies.units-si</artifactId>
 
   <name>Thing4 - BOM - Dependencies - Units SI</name>
@@ -35,14 +35,12 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.thing4.bom</groupId>
+      <groupId>org.thing4.dependencies</groupId>
       <artifactId>org.thing4.dependencies.units</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>tec.uom</groupId>
       <artifactId>uom-se</artifactId>
-      <version>${unit-se.version}</version>
     </dependency>
   </dependencies>
 

@@ -22,22 +22,20 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>thing4</artifactId>
+    <artifactId>thing4-parent</artifactId>
     <version>3.0.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
-  <artifactId>bom</artifactId>
+  <artifactId>dependencies</artifactId>
   <packaging>pom</packaging>
 
-  <name>Thing4 - BOM</name>
-  <description>Bill of materials POM.</description>
+  <name>Thing4 - Dependencies</name>
+  <description>Dependency aggregator POMs.</description>
 
   <modules>
-    <module>dependencies/units</module>
-    <module>dependencies/units-si</module>
     <module>units</module>
-    <module>openhab-core</module>
+    <module>units-si</module>
   </modules>
 
 </project>

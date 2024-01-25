@@ -121,10 +121,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.thing4.bom</groupId>
-      <artifactId>org.thing4.dependencies.units</artifactId>
-      <version>${project.version}</version>
-      <type>pom</type>
+      <groupId>org.thing4.dependencies</groupId>
+      <artifactId>org.thing4.dependencies.units-si</artifactId>
     </dependency>
 
     <dependency>
