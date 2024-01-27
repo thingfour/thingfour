@@ -1,0 +1,10 @@
+{{#if configDescriptions}}
+= Config descriptions
+
+{{#each configDescriptions}}
+[[{{uri}}]]
+== Config `{{uri}}`
+{{>config-description caption=(format "%s configuration" uri) config=.}}
+{{/each}}
+
+{{/if}}

@@ -1,0 +1,28 @@
+{{#if thingTypes}}
+= Thing types
+
+[width="100%",cols="1,1,2"]
+|===
+|Thing | Label ^|Description
+{{#each thingTypes}}
+| {{uid}}
+| {{label}}
+| {{description}}
+
+<<{{uid}}>>
+{{/each}}
+|===
+
+{{#each thingTypes}}
+[[{{uid}}]]
+== Thing `{{uid}}`
+
+Below table contains complete configuration of `{{uid}}`.
+{{>supported-bridge-types thingType=.}}
+
+{{#with (thingTypeConfigDescriptor . )}}
+{{>config-description caption=(format "Thing %s configuration" ../label) config=.}}
+{{/with}}
+{{/each}}
+
+{{/if}}

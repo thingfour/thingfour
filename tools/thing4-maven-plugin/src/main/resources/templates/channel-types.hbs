@@ -1,0 +1,26 @@
+{{#if channelTypes}}
+= Channel types
+
+[cols="1,2,4"]
+|===
+|Channel type | Label ^|Description
+{{#each channelTypes}}
+| {{uid}}
+| {{label}}
+| {{description}}
+
+<<{{uid}}>>
+{{/each}}
+|===
+
+{{#each channelTypes}}
+[[{{uid}}]]
+== Configuration of `{{uid}}`
+
+Below table contain configuration parameters which can be assigned to channels of type `{{uid}}`.
+{{#with (lookup (channelTypeConfigDescriptor . ))}}
+{{>config-description caption=(format "Channel type %s configuration" ../uid.id) config=.}}
+{{/with}}
+{{/each}}
+
+{{/if}}

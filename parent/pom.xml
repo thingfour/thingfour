@@ -59,6 +59,8 @@
     <testcontainers.version>1.17.6</testcontainers.version>
     <antlr4.version>4.13.1</antlr4.version>
     <xtext.version>2.23.0</xtext.version>
+
+    <plexus-component-annotations.version>1.7.1</plexus-component-annotations.version>
   </properties>
 
   <dependencyManagement>
@@ -162,9 +164,9 @@
       </dependency>
 
       <dependency>
-        <groupId>org.osgi</groupId>
-        <artifactId>osgi.core</artifactId>
-        <version>${osgi.version}</version>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-runtime</artifactId>
+        <version>${antlr4.version}</version>
       </dependency>
       <dependency>
         <groupId>org.osgi</groupId>
@@ -177,10 +179,11 @@
         <version>1.4.0</version>
       </dependency>
 
+      <!-- tooling -->
       <dependency>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-runtime</artifactId>
-        <version>${antlr4.version}</version>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-component-annotations</artifactId>
+        <version>${plexus-component-annotations.version}</version>
       </dependency>
 
       <dependency>

@@ -1,0 +1,6 @@
+{{#if thingType.supportedBridgeTypeUIDs}}
+Supported bridges:
+{{#each thingType.supportedBridgeTypeUIDs}}
+* {{referencePrefix}}bridge-types.adoc#{{.}}[{{.}}]{{referenceSuffix}}
+{{/each}}
+{{/if}}
