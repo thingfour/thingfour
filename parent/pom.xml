@@ -37,7 +37,7 @@
     <compiler.source>11</compiler.source>
     <compiler.target>11</compiler.target>
 
-    <bom.version>3.0.0-SNAPSHOT</bom.version>
+    <bom.version>3.0.2-SNAPSHOT</bom.version>
     <openhab.version>3.0.4</openhab.version>
     <openhab-distro.version>3.0.4</openhab-distro.version>
 
@@ -68,6 +68,13 @@
       <dependency>
         <groupId>org.thing4.openhab.bom.generated</groupId>
         <artifactId>org.openhab.core.bom.compile</artifactId>
+        <version>${bom.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4.openhab.bom.generated</groupId>
+        <artifactId>org.openhab.core.bom.compile-model</artifactId>
         <version>${bom.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -167,16 +174,6 @@
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-runtime</artifactId>
         <version>${antlr4.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.osgi</groupId>
-        <artifactId>osgi.cmpn</artifactId>
-        <version>${osgi.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.osgi</groupId>
-        <artifactId>org.osgi.service.component.annotations</artifactId>
-        <version>1.4.0</version>
       </dependency>
 
       <!-- tooling -->
