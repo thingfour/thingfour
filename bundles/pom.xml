@@ -27,7 +27,7 @@
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
-  <artifactId>addons</artifactId>
+  <artifactId>bundles</artifactId>
   <packaging>pom</packaging>
 
   <name>Thing4 - Addons</name>
