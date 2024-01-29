@@ -66,6 +66,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.service.component.annotations</artifactId>
+        <version>1.4.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.thing4.openhab.bom.generated</groupId>
         <artifactId>org.openhab.core.bom.compile</artifactId>
         <version>${bom.version}</version>
