@@ -29,8 +29,9 @@
 
   <groupId>org.thing4.dependencies</groupId>
   <artifactId>org.thing4.dependencies.units</artifactId>
+  <packaging>pom</packaging>
 
-  <name>Thing4 - BOM - Dependencies - Units</name>
+  <name>Thing4 - Dependencies - Units</name>
   <description>Dependency aggregation module to bring unit of measurements into compile scope.</description>
 
   <dependencies>

@@ -108,6 +108,7 @@
     <dependency>
       <groupId>org.thing4.dependencies</groupId>
       <artifactId>org.thing4.dependencies.units-si</artifactId>
+      <type>pom</type>
     </dependency>
 
     <dependency>

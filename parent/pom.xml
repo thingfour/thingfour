@@ -96,11 +96,13 @@
         <groupId>org.thing4.dependencies</groupId>
         <artifactId>org.thing4.dependencies.units</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
       <dependency>
         <groupId>org.thing4.dependencies</groupId>
         <artifactId>org.thing4.dependencies.units-si</artifactId>
         <version>${project.version}</version>
+        <type>pom</type>
       </dependency>
 
       <dependency>
