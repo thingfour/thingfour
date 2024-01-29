@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    if: ${{ true }}
     permissions:
       checks: write
       contents: read
@@ -14,7 +15,7 @@ jobs:
       CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
       CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
     with:
-      openhab: true
+      openhab: false
       server_id: thing4-snapshots
       deploy: true
       skip_test_publish: true
