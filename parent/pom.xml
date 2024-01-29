@@ -93,6 +93,47 @@
       </dependency>
 
       <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.apitoken</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.cookie</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.jwt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.password</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.provider.apitoken</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.provider.jwt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.provider.local</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.thing4.dependencies</groupId>
         <artifactId>org.thing4.dependencies.units</artifactId>
         <version>${project.version}</version>
