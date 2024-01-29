@@ -22,36 +22,31 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>thing4-parent</artifactId>
+    <artifactId>bundles</artifactId>
     <version>3.0.0-SNAPSHOT</version>
-    <relativePath>../parent/pom.xml</relativePath>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>bundles</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>org.thing4.core.auth</artifactId>
+  <packaging>bundle</packaging>
 
-  <name>Thing4 - Addons</name>
-  <description>Third party addon bundles for openHAB.</description>
+  <name>Thing4 - Core - Auth</name>
+  <description>Authentication API by Thing4</description>
 
-  <modules>
-    <module>org.thing4.core.assert</module>
+  <dependencies>
+    <dependency>
+      <groupId>org.openhab.core.bundles</groupId>
+      <artifactId>org.openhab.core</artifactId>
+    </dependency>
 
-    <!-- auth -->
-    <module>org.thing4.core.auth</module>
-    <module>org.thing4.core.auth.credential.apitoken</module>
-    <module>org.thing4.core.auth.credential.cookie</module>
-    <module>org.thing4.core.auth.credential.jwt</module>
-    <module>org.thing4.core.auth.credential.password</module>
-
-    <module>org.thing4.core.auth.provider.apitoken</module>
-    <module>org.thing4.core.auth.provider.jwt</module>
-    <module>org.thing4.core.auth.provider.local</module>
-
-    <!-- parser -->
-    <module>org.thing4.core.model.facade</module>
-    <module>org.thing4.core.parser</module>
-    <module>org.thing4.core.parser.thing</module>
-    <module>org.thing4.core.parser.thing.yaml</module>
-  </modules>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.service.component.annotations</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>
