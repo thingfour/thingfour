@@ -22,7 +22,7 @@
 
   <parent>
     <groupId>org.thing4</groupId>
-    <artifactId>addons</artifactId>
+    <artifactId>bundles</artifactId>
     <version>3.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
@@ -36,9 +36,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.eclipse.xtext</groupId>
-        <artifactId>xtext-dev-bom</artifactId>
-        <version>${xtext.version}</version>
+        <groupId>org.thing4.openhab.bom.generated</groupId>
+        <artifactId>org.openhab.core.bom.compile-model</artifactId>
+        <version>${bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -60,13 +60,10 @@
     <dependency>
       <groupId>org.eclipse.emf</groupId>
       <artifactId>org.eclipse.emf.ecore</artifactId>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.xtext</groupId>
       <artifactId>org.eclipse.xtext</artifactId>
-      <version>${xtext.version}</version>
-      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -123,6 +120,7 @@
     <dependency>
       <groupId>org.thing4.dependencies</groupId>
       <artifactId>org.thing4.dependencies.units-si</artifactId>
+      <type>pom</type>
     </dependency>
 
     <dependency>
