@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.thing4</groupId>
     <artifactId>parent</artifactId>
-    <version>1</version>
+    <version>2</version>
     <relativePath />
   </parent>
 
