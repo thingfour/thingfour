@@ -14,7 +14,7 @@ jobs:
       CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
       CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
     with:
-      openhab: false
+      openhab: true
       server_id: thing4-snapshots
       deploy: true
       skip_test_publish: true
