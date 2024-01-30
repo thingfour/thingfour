@@ -1,0 +1,195 @@
+= Thing4
+
+== Introduction
+This repository contains a third party extensions for openHAB project.
+
+Main goal of it is an experimentation of various kinds which aim to tackle some aspects which exceed core concepts of openHAB project.
+Second goal is improvement of tooling for third party extensions.
+These are often referred as unofficial openHAB extensions.
+The unofficial extension is an addon which is non-included or available within regular distribution.
+
+Extensions are starting with OH 3.0.x and aim compatibility with OH 4.x.
+
+=== Extensions
+
+==== `Parser` and `Writer` interfaces for DSL resources
+
+The `Parser` and `Writer` APIs are meant to provide interface for tooling but also runtime.
+This means that `Parser` can be first used to provide element (i.e. thing) definitions to runtime.
+After changes through UI the `Writer` can write this information back to source file.
+
+Available APIs (all below modules start with `org.thing4`):
+
+ * `core.parser`: Contains `Parser` and `Writer` APIs which allow to unify handling of read/write of configurations.
+ * `core.model.facade`: Facade which bridges official openHAB file parsers to thing4 API.
+ * `core.parser.thing`: Lightweight (xtext free) parser of thing file syntax (id: `thing4`).
+ * `core.parser.thing.yaml`: Lightweight parser and writer of things based on yaml syntax (id: `yaml`).
+
+Runtime extensions:
+
+ * `core.provider`: Provider API which serve common layer for provisioning of dynamic elements (things, items etc).
+ * `core.provider.file`: File watcher and common file related operations.
+ * `core.provider.thing`: Thing provider based on lightweight parser.
+ * `core.provider.thing.file`: Bridge between `parser.thing` and `provider.file` APIs.
+ * `core.provider.thing.file.yaml` Bridge between `parser.thing.yaml` and `provider.file` APIs.
+
+=== Tools
+The `thing4-maven-plugin` plugin embeds `Parser` and `Writer` APIs to parse and write files.
+Main purpose is processing of openHAB configuration and descriptors, which allows to i.e. convert descriptors between formats.
+First and most important aspect of it is verification of things defined in `.thing` files which can be embedded within build.
+
+Available goals of `thing4-maven-plugin`:
+ * `parse-descriptors` - parse `OH-INF/**/*.xml` files and store them in memory for further use within build.
+ * `process-descriptors` - process OH-INF descriptors through firing a Handlebars template engine which can output processed results.
+ * `parse-write` - parse definition of resources in one format and eventually write it as another.
+
+
+==== The `parse-write` goal configuration
+[width="100%",cols="1,1,2,4"]
+|===
+|Parameter | Type | Default |Description
+
+| includes/include | `pattern` | `` | Included resources.
+| excludes/exclude | `pattern` | `` | Excluded resources.
+| type   | `Class` | `` | Entity type expected to be delivered from resources.
+| parser | `id`    | `` | Identifier of parser to read included definitions.
+| writer | `id`    | `` | (optional) Identifier of writer used to output definitions.
+|===
+
+Both parser and writer are looked up through classpath scanning.
+Plugin does not assume default parser implementation nor type definition.
+In order to plug parser/writer you need to configure additional dependency for plugin (see examples below).
+
+For each of these files a corresponding output file is generated.
+For example by setting `outputExtension` to `html` files named `bridge-types.html`, `thing-types.html` etc. will be created in output directory.
+
+When `writer` option is specified each input file will result in additional output file.
+Generated files will use identifier of writer as file extension.
+For example file `example/Demo.things` will result in creation of `example/Demo.yaml`.
+
+==== The `process-descriptors` goal configuration
+By default, this goal will use embedded handlebars templates which can be used to generate documentation compatible with https://asciidoctor.org/[Asciidoctor] format.
+
+Supported configuration options:
+
+[width="100%",cols="1,1,2,4"]
+|===
+|Parameter | Type | Default |Description
+
+| resources | `List<Resource>` | `${project.resources}` | All configured project resources.
+| outputDirectory | `File` | `${project.build.directory}/docs` | Directory where results will be stored.
+| outputExtension | `String` | - | Default extension of files which are generated from input templates.
+|===
+
+Input templates by default include:
+
+- `/templates/bridge-types.hbs`
+- `/templates/thing-types.hbs`
+- `/templates/channel-types.hbs`
+- `/templates/config-descriptions.hbs`
+For each of these files a corresponding output file is generated.
+For example by setting `outputExtension` to `html` files named `bridge-types.html`, `thing-types.html` etc. will be created in output directory.
+
+==== Example use
+
+===== Validation of thing file syntax
+[source,xml]
+----
+<plugin>
+  <groupId>org.thing4.tools</groupId>
+  <artifactId>thing4-maven-plugin</artifactId>
+  <version><!-- place version here --></version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>parse-write</goal>
+      </goals>
+      <configuration>
+        <includes>
+          <include>docs/examples/**/*.things</include>
+        </includes>
+        <parser>openhab</parser>
+        <type>org.openhab.core.thing.Thing</type>
+      </configuration>
+    </execution>
+  </executions>
+  <dependencies>
+    <dependency>
+      <groupId>org.thing4</groupId>
+      <artifactId>org.thing4.core.model.facade</artifactId>
+      <version><!-- place version here --></version>
+    </dependency>
+  </dependencies>
+</plugin>
+----
+In above example the `docs/examples/**/*.things` files will be passed to parse `org.openhab.core.thing.Thing` definitions.
+Parameters `parser` and `type` point which parser implementation to use and which entity to parse.
+
+===== Automatically rewrite thing file to yaml format.
+[source,xml]
+----
+<plugin>
+  <groupId>org.thing4.tools</groupId>
+  <artifactId>thing4-maven-plugin</artifactId>
+  <version><!-- place version here --></version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>parse-write</goal>
+      </goals>
+      <configuration>
+        <includes>
+          <include>docs/examples/**/*.things</include>
+        </includes>
+        <parser>openhab</parser>
+        <writer>yaml</writer>
+        <type>org.openhab.core.thing.Thing</type>
+      </configuration>
+    </execution>
+  </executions>
+  <dependencies>
+    <dependency>
+      <groupId>org.thing4</groupId>
+      <artifactId>org.thing4.core.model.facade</artifactId>
+      <version><!-- place version here --></version>
+    </dependency>
+    <dependency>
+      <groupId>org.thing4</groupId>
+      <artifactId>org.thing4.core.parser.thing.yaml</artifactId>
+      <version><!-- place version here --></version>
+    </dependency>
+  </dependencies>
+</plugin>
+----
+Configuration is exactly the same as earlier, however this time we specify additionally `write=yaml`.
+Agan, because writer is looked up through classpath scan we have to add second dependency - a `parser.thing.yaml`.
+
+===== Generate documentation
+[source,xml]
+----
+<plugin>
+  <groupId>org.thing4.tools</groupId>
+  <artifactId>thing4-maven-plugin</artifactId>
+  <version><!-- place version here --></version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>process-descriptors</goal>
+      </goals>
+      <configuration>
+        <outputExtension>adoc</outputExtension>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+----
+The processing will look for `OH-INF/thing/*.xml`, `OH-INF/config/*.xml` elements.
+Based on these it will output:
+
+. bridge-types
+. thing-types
+. config descriptions
+. channel-types
+
+Templates of these can be overriden by expansion of plugin classpath.
+Default templates are loaded from `/templates/` location using area name i.e. `thing-types.hbs`, `config-descriptions.hbs`.
