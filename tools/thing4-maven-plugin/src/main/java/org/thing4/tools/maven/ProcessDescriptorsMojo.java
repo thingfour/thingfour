@@ -56,7 +56,7 @@ import org.thing4.tools.maven.handlebars.ThingTypeConfigDescriptorHelper;
     defaultPhase = LifecyclePhase.PROCESS_RESOURCES,
     requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME
 )
-public class DocumentationMojo extends DescriptorProcessorMojo {
+public class ProcessDescriptorsMojo extends DescriptorProcessorMojo {
 
   /**
    * The output directory into which to copy the resources.
