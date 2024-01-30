@@ -42,6 +42,18 @@
     <module>tools</module>
   </modules>
 
+  <scm>
+    <connection>scm:git:https://github.com/thingfour/thingfour.git</connection>
+    <developerConnection>scm:git:git@github.com:thingfour/thingfour.git</developerConnection>
+    <url>https://github.com/thingfour/thingfour</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/thingfour/thingfour/issues</url>
+  </issueManagement>
+
   <!--
   <repositories>
     <repository>
