@@ -251,7 +251,7 @@ public class AntlrV4ThingsParser implements Parser<Thing> {
       final Configuration configuration = createConfiguration(ctx.properties);
 
       AutoUpdatePolicy autoUpdatePolicy = null;
-      String id = stack.element().uid + ":" + ctx.id.getText();
+      String id = stack.getLast().uid + ":" + ctx.id.getText();
       ChannelTypeUID channelTypeUID = new ChannelTypeUID(stack.element().uid.getBindingId(), channelType);
       ChannelBuilder channelBuilder = channelFactory.create(id, itemType)
         .withKind(channelKind)
@@ -261,7 +261,7 @@ public class AntlrV4ThingsParser implements Parser<Thing> {
         .withAutoUpdatePolicy(autoUpdatePolicy);
       Channel channel = channelBuilder.build();
 
-      stack.element().builder.withChannel(channel);
+      stack.getLast().builder.withChannel(channel);
     }
 
     private void populate(ThingBuilder bridgeBuilder, ThingUID parent, Token label, Token location, ModelPropertiesContext properties) {
