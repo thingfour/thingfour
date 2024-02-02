@@ -17,6 +17,11 @@
  */
 grammar Things;
 
+@lexer::members {
+  public static final int WHITESPACE = 1;
+  public static final int COMMENTS = 2;
+}
+
 // This grammar file describes both lexer and parser rules needed to parse openHAB's things files.
 // It has some touch base with xtext, however it drives some parts further in making them pluggable.
 // First of all, it does allow dynamic item types which are not static
@@ -186,6 +191,9 @@ CHANNEL_KIND
   | STATE
   ;
 
+ML_COMMENT : '/*' .*? '*/' -> channel(HIDDEN);
+SL_COMMENT : '//' ( ~('\n'|'\r') )* ('\r'? '\n')? -> channel(HIDDEN);
+
 MINUS: '-';
 STRING
   : '"'  ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\') | ~('\\'|'"') )* '"' {setText(getText().substring(1, getText().length() - 1));}
@@ -199,4 +207,4 @@ INTEGER: MINUS? DIGIT+;
 DECIMAL: MINUS? DIGIT+ '.' DIGIT+;
 DIGIT: '0'..'9';
 
-WS: ( ' ' | [ \t\r\n]+ ) -> channel ( HIDDEN ) ;
+WS: ( ' ' | [ \t\r\n]+ ) -> skip;
