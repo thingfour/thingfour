@@ -35,6 +35,14 @@
   <name>Thing4</name>
   <description>Thing 4 is an independent set of tools aimed to help with development of third party addons for openHAB and openHAB compatible deployments.</description>
 
+  <properties>
+    <sonar.projectKey>thingfour_thingfour</sonar.projectKey>
+    <sonar.organization>thing4</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <!-- keeps sonar happy with java 11 -->
+    <sonar.scanner.force-deprecated-java-version>true</sonar.scanner.force-deprecated-java-version>
+  </properties>
+
   <modules>
     <module>parent</module>
     <module>dependencies</module>
@@ -54,56 +62,31 @@
     <url>https://github.com/thingfour/thingfour/issues</url>
   </issueManagement>
 
-  <!--
-  <repositories>
-    <repository>
-      <id>openhab-release</id>
-      <name>openhab-release</name>
-      <url>https://openhab.jfrog.io/openhab/libs-release</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>openhab-snapshot</id>
-      <name>openhab-snapshot</name>
-      <url>https://openhab.jfrog.io/openhab/libs-snapshot</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+  <profiles>
+    <profile>
+      <id>sonatype-oss</id>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>openhab-release</id>
-      <name>openhab-releass</name>
-      <url>https://openhab.jfrog.io/openhab/libs-release</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-    <pluginRepository>
-      <id>openhab-snapshot</id>
-      <name>openhab-snapshot</name>
-      <url>https://openhab.jfrog.io/openhab/libs-snapshot</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-  -->
+      <activation>
+        <property>
+          <name>cicd</name>
+          <value>true</value>
+        </property>
+      </activation>
+
+      <repositories>
+        <repository>
+          <id>sonatype</id>
+          <name>Sonatype OSS snapshots</name>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
 </project>
