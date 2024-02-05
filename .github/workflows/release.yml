@@ -30,7 +30,7 @@ jobs:
       CI_RELEASE_USERNAME: ${{ secrets.CI_RELEASE_USERNAME }}
       CI_RELEASE_PASSWORD: ${{ secrets.CI_RELEASE_PASSWORD }}
     with:
-      openhab: false
+      openhab: true
       server_id: 'sonatype-nexus-staging-s01'
       release_version: ${{ inputs.release_version }}
       development_version: ${{ inputs.development_version }}
