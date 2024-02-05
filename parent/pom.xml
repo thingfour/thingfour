@@ -34,18 +34,17 @@
   <description>Parent for Thing4 tools, addons and extensions.</description>
 
   <properties>
-    <compiler.source>11</compiler.source>
-    <compiler.target>11</compiler.target>
+    <compiler.source>17</compiler.source>
+    <compiler.target>17</compiler.target>
 
-    <bom.version>3.0.4</bom.version>
-    <openhab.version>3.0.4</openhab.version>
-    <openhab-distro.version>3.0.4</openhab-distro.version>
+    <bom.version>4.0.4</bom.version>
+    <openhab.version>4.0.4</openhab.version>
+    <openhab-distro.version>4.0.4</openhab-distro.version>
 
     <karaf.version>4.4.4</karaf.version>
 
     <slf4j.version>1.7.36</slf4j.version>
     <fasterxml-classmate.version>1.5.1</fasterxml-classmate.version>
-    <osgi.version>6.0.0</osgi.version>
 
     <assertj.version>3.23.1</assertj.version>
     <junit-jupiter.version>5.9.1</junit-jupiter.version>
@@ -53,7 +52,6 @@
 
     <!-- various build related variables -->
     <feature.file>${project.basedir}/target/feature/feature.xml</feature.file>
-    <osgi.version>6.0.0</osgi.version>
 
     <connectorio-testcontainers.version>0.1.0</connectorio-testcontainers.version>
     <testcontainers.version>1.17.6</testcontainers.version>

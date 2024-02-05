@@ -43,11 +43,11 @@
 
     <dependency>
       <groupId>org.openhab.core.bundles</groupId>
-      <artifactId>org.openhab.core.config.xml</artifactId>
+      <artifactId>org.openhab.core.thing</artifactId>
     </dependency>
     <dependency>
       <groupId>org.openhab.core.bundles</groupId>
-      <artifactId>org.openhab.core.thing.xml</artifactId>
+      <artifactId>org.openhab.core.config.core</artifactId>
     </dependency>
     <dependency>
       <groupId>com.thoughtworks.xstream</groupId>

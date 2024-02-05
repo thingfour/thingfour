@@ -144,10 +144,8 @@ public class ThingParserFacade implements Parser<Thing> {
         logger.info("Model level event {}, model {}", type, modelName);
       }
     });
+
     repository.addOrRefreshModel("test.things", new ByteArrayInputStream(contents));
-
-    thingProvider.activate();
-
     return new ArrayList<>(thingProvider.getAll());
   }
 

@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.openhab.core.config.core.ConfigDescription;
-import org.openhab.core.config.xml.internal.ConfigDescriptionReader;
+import org.openhab.core.config.core.xml.internal.ConfigDescriptionReader;
 import org.thing4.tools.maven.Cache;
 
 @Component(role = Cache.class, hint = ConfigDescriptorCache.HINT)
