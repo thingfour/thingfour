@@ -19,7 +19,9 @@ package org.thing4.tools.maven.plexus;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,19 +33,28 @@ import org.openhab.core.config.core.xml.internal.ConfigDescriptionReader;
 import org.thing4.tools.maven.Cache;
 
 @Component(role = Cache.class, hint = ConfigDescriptorCache.HINT)
-public class ConfigDescriptorCache extends DescriptorCache<List<ConfigDescription>> {
+public class ConfigDescriptorCache extends DescriptorCache<ConfigDescription, List<ConfigDescription>> {
 
   public static final String HINT = "config-description";
 
-  private final Map<MavenProject, List<ConfigDescription>> cache = new ConcurrentHashMap<>();
+  private final Map<MavenProject, Map<URI, ConfigDescription>> cache = new ConcurrentHashMap<>();
 
   @Override
   public Optional<List<ConfigDescription>> get(MavenProject key) {
-    return Optional.ofNullable(cache.computeIfAbsent(key, this::load));
+    return Optional.ofNullable(cache.computeIfAbsent(key, this::load))
+      .map(map -> new ArrayList<>(map.values()));
   }
 
-  private List<ConfigDescription> load(MavenProject project) {
-    List<ConfigDescription> configDescriptions = new ArrayList<>();
+  @Override
+  public void append(MavenProject key, ConfigDescription value) {
+    if (!cache.containsKey(key)) {
+      cache.put(key, load(key));
+    }
+    cache.get(key).putIfAbsent(value.getUID(), value);
+  }
+
+  private Map<URI, ConfigDescription> load(MavenProject project) {
+    Map<URI, ConfigDescription> configDescriptions = new HashMap<>();
     ConfigDescriptionReader reader = new ConfigDescriptionReader();
     for (File file : getXmlFiles(project, "OH-INF/config/")) {
       try {
@@ -51,7 +62,9 @@ public class ConfigDescriptorCache extends DescriptorCache<List<ConfigDescriptio
         if (elements == null) {
           continue;
         }
-        configDescriptions.addAll(elements);
+        for (ConfigDescription element : elements) {
+          configDescriptions.putIfAbsent(element.getUID(), element);
+        }
       } catch (MalformedURLException e) {
         // continue
       }
