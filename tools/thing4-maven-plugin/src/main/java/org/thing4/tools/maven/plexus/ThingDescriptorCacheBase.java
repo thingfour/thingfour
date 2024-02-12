@@ -24,16 +24,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.inject.Inject;
 import org.apache.maven.project.MavenProject;
+import org.openhab.core.config.core.ConfigDescription;
 import org.openhab.core.thing.xml.internal.ThingDescriptionReader;
+import org.thing4.tools.maven.Cache;
 
-public abstract class ThingDescriptorCacheBase<T> extends DescriptorCache<List<T>> {
+public abstract class ThingDescriptorCacheBase<T> extends DescriptorCache<T, List<T>> {
 
   private final Map<MavenProject, List<T>> cache = new ConcurrentHashMap<>();
+
+
+  @Inject
+  protected Cache<MavenProject, ConfigDescription, List<ConfigDescription>> configDescriptorCache;
 
   @Override
   public Optional<List<T>> get(MavenProject key) {
     return Optional.ofNullable(cache.computeIfAbsent(key, this::load));
+  }
+
+  @Override
+  public void append(MavenProject key, T value) {
+    if (!cache.containsKey(key)) {
+      cache.put(key, load(key));
+    }
+    cache.get(key).add(value);
   }
 
   private List<T> load(MavenProject project) {
@@ -46,7 +61,7 @@ public abstract class ThingDescriptorCacheBase<T> extends DescriptorCache<List<T
           continue;
         }
         for (Object element : elements) {
-          T definition = define(element);
+          T definition = define(project, element);
           if (definition != null) {
             definitions.add(definition);
           }
@@ -59,6 +74,6 @@ public abstract class ThingDescriptorCacheBase<T> extends DescriptorCache<List<T
     return definitions;
   }
 
-  protected abstract T define(Object element);
+  protected abstract T define(MavenProject key, Object element);
 
 }

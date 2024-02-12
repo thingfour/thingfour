@@ -17,11 +17,10 @@
  */
 package org.thing4.tools.maven.plexus;
 
+import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.openhab.core.thing.type.ChannelGroupType;
-import org.openhab.core.thing.type.ChannelType;
 import org.openhab.core.thing.xml.internal.ChannelGroupTypeXmlResult;
-import org.openhab.core.thing.xml.internal.ChannelTypeXmlResult;
 import org.thing4.tools.maven.Cache;
 
 @Component(role = Cache.class, hint = ChannelGroupTypeDescriptorCache.CHANNEL_GROUP_TYPE_HINT)
@@ -30,7 +29,7 @@ public class ChannelGroupTypeDescriptorCache extends ThingDescriptorCacheBase<Ch
   public static final String CHANNEL_GROUP_TYPE_HINT = "channel-group-type";
 
   @Override
-  protected ChannelGroupType define(Object element) {
+  protected ChannelGroupType define(MavenProject key, Object element) {
     if (element instanceof ChannelGroupTypeXmlResult) {
       return ((ChannelGroupTypeXmlResult) element).toChannelGroupType();
     }

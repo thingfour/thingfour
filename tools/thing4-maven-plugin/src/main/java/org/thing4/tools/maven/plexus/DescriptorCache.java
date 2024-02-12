@@ -20,12 +20,13 @@ package org.thing4.tools.maven.plexus;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import org.apache.maven.model.Resource;
 import org.apache.maven.project.MavenProject;
 import org.thing4.tools.maven.Cache;
 
-public abstract class DescriptorCache<V> implements Cache<MavenProject, V> {
+public abstract class DescriptorCache<E, V extends Collection<E>> implements Cache<MavenProject, E, V> {
 
   protected final File[] getXmlFiles(MavenProject project, String subdirectory) {
     List<File> files = new ArrayList<>();

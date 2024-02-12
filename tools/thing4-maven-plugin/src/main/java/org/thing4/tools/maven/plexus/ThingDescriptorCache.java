@@ -17,6 +17,7 @@
  */
 package org.thing4.tools.maven.plexus;
 
+import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.openhab.core.thing.type.ThingType;
 import org.openhab.core.thing.xml.internal.ThingTypeXmlResult;
@@ -28,9 +29,12 @@ public class ThingDescriptorCache extends ThingDescriptorCacheBase<ThingType> {
   public static final String THING_HINT = "thing";
 
   @Override
-  protected ThingType define(Object element) {
+  protected ThingType define(MavenProject key, Object element) {
     if (element instanceof ThingTypeXmlResult) {
       ThingTypeXmlResult xmlResult = (ThingTypeXmlResult) element;
+      if (xmlResult.getConfigDescription() != null) {
+        configDescriptorCache.append(key, xmlResult.getConfigDescription());
+      }
       return xmlResult.toThingType();
     }
     return null;

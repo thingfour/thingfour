@@ -17,6 +17,7 @@
  */
 package org.thing4.tools.maven.plexus;
 
+import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.openhab.core.thing.type.ChannelType;
 import org.openhab.core.thing.xml.internal.ChannelTypeXmlResult;
@@ -28,7 +29,7 @@ public class ChannelTypeDescriptorCache extends ThingDescriptorCacheBase<Channel
   public static final String CHANNEL_TYPE_HINT = "channel-type";
 
   @Override
-  protected ChannelType define(Object element) {
+  protected ChannelType define(MavenProject key, Object element) {
     if (element instanceof ChannelTypeXmlResult) {
       return ((ChannelTypeXmlResult) element).toChannelType();
     }
