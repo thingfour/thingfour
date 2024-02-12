@@ -42,16 +42,16 @@ public abstract class DescriptorProcessorMojo extends AbstractMojo {
   private MavenProject project;
 
   @Inject
-  private Cache<MavenProject, List<ConfigDescription>> configCache;
+  private Cache<MavenProject, ConfigDescription, List<ConfigDescription>> configCache;
 
   @Inject
-  private Cache<MavenProject, List<ThingType>> thingCache;
+  private Cache<MavenProject, ThingType, List<ThingType>> thingCache;
 
   @Inject
-  private Cache<MavenProject, List<ChannelType>> channelTypeCache;
+  private Cache<MavenProject, ChannelType, List<ChannelType>> channelTypeCache;
 
   @Inject
-  private Cache<MavenProject, List<ChannelGroupType>> channelGroupTypeCache;
+  private Cache<MavenProject, ChannelGroupType, List<ChannelGroupType>> channelGroupTypeCache;
 
   @Override
   public final void execute() throws MojoExecutionException, MojoFailureException {

@@ -17,6 +17,7 @@
  */
 package org.thing4.tools.maven;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -25,8 +26,10 @@ import java.util.Optional;
  * @param <K> Key type.
  * @param <V> Value type.
  */
-public interface Cache<K, V> {
+public interface Cache<K, E, V extends Collection<E>> {
 
   Optional<V> get(K key);
+
+  void append(K key, E value);
 
 }
