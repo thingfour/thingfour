@@ -25,7 +25,9 @@ import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.context.FieldValueResolver;
 import com.github.jknack.handlebars.context.JavaBeanValueResolver;
 import com.github.jknack.handlebars.context.MapValueResolver;
+import com.github.jknack.handlebars.helper.ConditionalHelpers;
 import com.github.jknack.handlebars.helper.DefaultHelperRegistry;
+import com.github.jknack.handlebars.helper.StringHelpers;
 import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
 import com.github.jknack.handlebars.io.URLTemplateSource;
 import java.io.File;
@@ -97,6 +99,7 @@ public class ProcessDescriptorsMojo extends DescriptorProcessorMojo {
       .collect(Collectors.toList());
 
     HelperRegistry registry = new DefaultHelperRegistry();
+    registry.registerHelpers(ConditionalHelpers.class);
     registry.registerHelper("channelTypeConfigDescriptor", new ChannelTypeConfigDescriptorHelper(configDescriptions));
     registry.registerHelper("thingTypeConfigDescriptor", new ThingTypeConfigDescriptorHelper(configDescriptions));
     registry.registerHelper("format", new FormatHelper());
@@ -104,6 +107,7 @@ public class ProcessDescriptorsMojo extends DescriptorProcessorMojo {
       .with(new ClassPathTemplateLoader("/templates/"))
       .with(EscapingStrategy.NOOP)
       .with(registry);
+    StringHelpers.register(hbs);
 
     Context context = Context.newBuilder(new DescriptorsContext(bridgeTypeDescriptors, thingTypeDescriptors, channelTypes, channelGroupTypes, configDescriptions))
       .resolver(
