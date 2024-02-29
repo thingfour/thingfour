@@ -1,9 +1,26 @@
-[width="100%",caption="{{caption}}",cols="1,1,1,2"]
+[width="100%",caption="{{caption}}",cols="1,2,1,2"]
 |===
 |Name | Type | Label ^|Description
 {{#each config.parameters}}
-| {{name}}
-| {{type}}
+| {{#if required}}**{{name}}**{{else}}{{name}}{{/if}}
+a| {{type}}
+
+{{#if defaultValue}}Default: {{defaultValue}}{{/if}}
+{{#if readOnly}}Read only  {{/if}}
+
+{{#if or (eq type "INTEGER") (eq type "DECIMAL")}}
+{{#if min}}Min: {{min}}  {{/if}}
+{{#if min}}Max: {{max}}  {{/if}}
+{{#if min}}Step: {{max}}  {{/if}}
+{{#if unit}}Unit: {{unit}}  {{/if}}
+{{/if}}
+{{#if multiple}}Multiple  {{/if}}
+{{#if options}}
+Valid options:
+{{#each options}}
+* `{{value}}`: {{label}}
+{{/each}}
+{{/if}}
 | {{label}}
 | {{description}}
 {{/each}}
