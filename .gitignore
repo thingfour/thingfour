@@ -1,0 +1,6 @@
+bundles/org.thing4.core.ui/web/dist/
+bundles/org.thing4.core.ui/web/node_modules/
+bundles/org.thing4.core.ui/web/packages/api/dist/
+bundles/org.thing4.core.ui/web/packages/api/node_modules/
+bundles/org.thing4.core.ui.persistence/web/dist/
+bundles/org.thing4.core.ui.persistence/web/node_modules/

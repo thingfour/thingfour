@@ -52,6 +52,10 @@
     <module>org.thing4.core.parser</module>
     <module>org.thing4.core.parser.thing</module>
     <module>org.thing4.core.parser.thing.yaml</module>
+
+    <!-- ui -->
+    <module>org.thing4.core.ui</module>
+    <module>org.thing4.core.ui.persistence</module>
   </modules>
 
 </project>

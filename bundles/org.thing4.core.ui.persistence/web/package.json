@@ -1,0 +1,44 @@
+{
+  "name": "@thing4/core-ui-persistence",
+  "private": true,
+  "type": "module",
+  "module": "thing4-core-ui-persistence",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build --emptyOutDir",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@thing4/core-ui-api": "file:../../org.thing4.core.ui/web/packages/api",
+    "@thing4/core-ui": "file:../../org.thing4.core.ui/web",
+    "@carbon/icons-react": "^11.57.0",
+    "@carbon/react": "~1.79.0",
+    "@carbon/themes": "^11.36.0",
+    "@carbon/styles": "^1.58.0",
+    "@ibm/plex": "^6.4.1",
+    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-query-devtools": "^5.40.1",
+    "react-hook-form": "^7.48.2",
+    "axios": "^1.7.2",
+    "react": "~18.3.0",
+    "react-dom": "~18.3.0",
+    "react-router-dom": "^6.23.1",
+    "use-query-params": "^2.2.1",
+    "dayjs": "^1.11.11"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "@types/react": "~18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/node": "^22.13.14",
+    "@vitejs/plugin-react": "^4.3.4",
+    "sass": "^1.77.4",
+    "postcss": "^8.4.35",
+    "vite": "^6.2.2",
+    "@module-federation/vite": "~1.2.6"
+  },
+  "overrides": {
+    "globals": "14.0.0"
+  }
+}

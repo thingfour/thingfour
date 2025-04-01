@@ -1,0 +1,35 @@
+// custom-theme.scss
+
+$interactive-01: #009ae9; // Primary color
+$interactive-02: #004ea1; // Secondary color
+$interactive-03: #d10000; // Accent color
+
+// Override other colors as needed
+$ui-background: #f4f4f4;
+$ui-01: #ffffff;
+$ui-02: #e0e0e0;
+$ui-03: #c6c6c6;
+$ui-04: #8d8d8d;
+$ui-05: #161616;
+
+$text-01: #161616;
+$text-02: #525252;
+$text-03: #a8a8a8;
+$text-04: #ffffff;
+$text-error: $interactive-03; // Error text color matches the accent color
+
+$support-error: $interactive-03;
+$support-success: #24a148;
+$support-warning: #f1c21b;
+$support-info: $interactive-01; // Info color matches the primary color
+
+$link-primary: $interactive-02; // Links
+$link-secondary: #0072c3;
+
+// Focus, hover and active states
+$focus: $interactive-01;
+$hover-primary: #0072c3;
+$active-primary: #005a8c;
+
+// Include Carbon styles
+@import '@carbon/colors';

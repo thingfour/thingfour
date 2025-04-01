@@ -1,0 +1,13 @@
+{
+  "name": "@thing4/core-ui-api",
+  "private": true,
+  "version": "3.0.0",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "src"
+  ]
+}
