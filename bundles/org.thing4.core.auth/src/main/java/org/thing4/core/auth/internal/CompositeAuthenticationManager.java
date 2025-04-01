@@ -1,11 +1,9 @@
 package org.thing4.core.auth.internal;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import org.openhab.core.auth.Authentication;
 import org.openhab.core.auth.AuthenticationException;
-import org.openhab.core.auth.UnsupportedCredentialsException;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -13,11 +11,7 @@ import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.thing4.core.auth.AuthenticationManager;
-import org.thing4.core.auth.AuthenticationProvider;
-import org.thing4.core.auth.AuthenticationResult;
-import org.thing4.core.auth.Credentials;
-import org.thing4.core.auth.PrincipalUID;
+import org.thing4.core.auth.*;
 import org.thing4.core.auth.permission.registry.PermissionRegistry;
 
 @Component(service = AuthenticationManager.class)

@@ -10,14 +10,14 @@ import org.thing4.core.auth.Credentials;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.thing4.core.auth.PrincipalWrapper;
 import org.thing4.core.auth.credential.apitoken.ApiTokenCredentials;
-import org.thing4.core.auth.internal.PrincipalWrapper;
 
 /**
  * Authentication provider which is able to correlate received authentication token.
+ * In a way it encapsulates a logic which is embedded in openHAB core.
  *
- * @author Yannick Schaus - initial contribution
- * @author Łukasz Dywicki - Extracted from io.rest.auth module.
+ * @author Łukasz Dywicki
  */
 @Component
 public class ApitokenAuthenticationProvider implements AuthenticationProvider {
@@ -34,7 +34,7 @@ public class ApitokenAuthenticationProvider implements AuthenticationProvider {
     UserApiTokenCredentials apiTokenCredentials = new UserApiTokenCredentials(((ApiTokenCredentials) credentials).getApiToken());
     Authentication authentication = userRegistry.authenticate(apiTokenCredentials);
     return new AuthenticationResult(
-        new PrincipalWrapper(authentication.getUsername()), credentials.getScheme(), authentication
+      new PrincipalWrapper(authentication.getUsername()), credentials.getScheme(), authentication
     );
   }
 

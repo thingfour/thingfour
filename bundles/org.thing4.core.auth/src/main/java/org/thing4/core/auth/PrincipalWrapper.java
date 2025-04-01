@@ -1,4 +1,4 @@
-package org.thing4.core.auth.internal;
+package org.thing4.core.auth;
 
 import java.security.Principal;
 
