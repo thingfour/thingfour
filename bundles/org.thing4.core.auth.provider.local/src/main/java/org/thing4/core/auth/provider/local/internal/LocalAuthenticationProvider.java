@@ -7,7 +7,7 @@ import org.thing4.core.auth.AuthenticationProvider;
 import org.thing4.core.auth.AuthenticationResult;
 import org.thing4.core.auth.Credentials;
 import org.thing4.core.auth.credential.password.UsernamePasswordCredentials;
-import org.thing4.core.auth.internal.PrincipalWrapper;
+import org.thing4.core.auth.PrincipalWrapper;
 
 public class LocalAuthenticationProvider implements AuthenticationProvider {
 
