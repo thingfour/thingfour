@@ -33,18 +33,6 @@
   <name>Thing4 - Core - Model - Facade</name>
   <description>Facade to openHAB model APIs.</description>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.thing4.openhab.bom.generated</groupId>
-        <artifactId>org.openhab.core.bom.compile-model</artifactId>
-        <version>${bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>org.thing4</groupId>
