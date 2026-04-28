@@ -7,7 +7,7 @@ import org.thing4.core.auth.AuthenticationProvider;
 import org.thing4.core.auth.AuthenticationResult;
 import org.thing4.core.auth.Credentials;
 import org.thing4.core.auth.credential.password.UsernamePasswordCredentials;
-import org.thing4.core.auth.internal.PrincipalWrapper;
+import org.thing4.core.auth.NamedPrincipal;
 
 public class LocalAuthenticationProvider implements AuthenticationProvider {
 
@@ -25,7 +25,7 @@ public class LocalAuthenticationProvider implements AuthenticationProvider {
         userCredentials.getUsername(), userCredentials.getPassword())
       );
 
-      return new AuthenticationResult(new PrincipalWrapper(authentication.getUsername()), credentials.getScheme(), authentication);
+      return new AuthenticationResult(new NamedPrincipal(authentication.getUsername()), credentials.getScheme(), authentication);
     }
 
     throw new AuthenticationException("Unsupported credentials " + credentials.getScheme());

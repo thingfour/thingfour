@@ -1,11 +1,9 @@
 package org.thing4.core.auth.internal;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import org.openhab.core.auth.Authentication;
 import org.openhab.core.auth.AuthenticationException;
-import org.openhab.core.auth.UnsupportedCredentialsException;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -18,6 +16,7 @@ import org.thing4.core.auth.AuthenticationProvider;
 import org.thing4.core.auth.AuthenticationResult;
 import org.thing4.core.auth.Credentials;
 import org.thing4.core.auth.PrincipalUID;
+import org.thing4.core.auth.NamedPrincipal;
 import org.thing4.core.auth.permission.registry.PermissionRegistry;
 
 @Component(service = AuthenticationManager.class)
@@ -55,7 +54,7 @@ public class CompositeAuthenticationManager implements AuthenticationManager {
     // delegate call to openHAB auth manager
     Authentication authenticate = manager.authenticate(credentials);
     permissionRegistry.get(new PrincipalUID(credentials.getScheme(), authenticate.getUsername()));
-    return new AuthenticationResult(new PrincipalWrapper(authenticate.getUsername()), credentials.getScheme(), authenticate);
+    return new AuthenticationResult(new NamedPrincipal(authenticate.getUsername()), credentials.getScheme(), authenticate);
   }
 
   @Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)

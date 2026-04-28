@@ -1,12 +1,12 @@
-package org.thing4.core.auth.internal;
+package org.thing4.core.auth;
 
 import java.security.Principal;
 
-public class PrincipalWrapper implements Principal {
+public class NamedPrincipal implements Principal {
 
   private final String username;
 
-  public PrincipalWrapper(String username) {
+  public NamedPrincipal(String username) {
     this.username = username;
   }
 

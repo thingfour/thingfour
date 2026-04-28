@@ -61,6 +61,9 @@
     <xtext.version>2.23.0</xtext.version>
 
     <plexus-component-annotations.version>1.7.1</plexus-component-annotations.version>
+    <log4j2.version>2.14.1</log4j2.version>
+    <openapi-generator.version>5.4.0</openapi-generator.version>
+    <connectorio-openapi-generators.version>${openapi-generator.version}</connectorio-openapi-generators.version>
   </properties>
 
   <dependencyManagement>
@@ -246,6 +249,17 @@
         <artifactId>openhab</artifactId>
         <version>${connectorio-testcontainers.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -378,6 +392,7 @@
         <configuration>
           <systemPropertyVariables>
             <openhab.version>${openhab-distro.version}</openhab.version>
+            <api.version>1.44</api.version>
           </systemPropertyVariables>
         </configuration>
       </plugin>

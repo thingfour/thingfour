@@ -11,7 +11,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.thing4.core.auth.credential.apitoken.ApiTokenCredentials;
-import org.thing4.core.auth.internal.PrincipalWrapper;
+import org.thing4.core.auth.NamedPrincipal;
 
 /**
  * Authentication provider which is able to correlate received authentication token.
@@ -34,7 +34,7 @@ public class ApitokenAuthenticationProvider implements AuthenticationProvider {
     UserApiTokenCredentials apiTokenCredentials = new UserApiTokenCredentials(((ApiTokenCredentials) credentials).getApiToken());
     Authentication authentication = userRegistry.authenticate(apiTokenCredentials);
     return new AuthenticationResult(
-        new PrincipalWrapper(authentication.getUsername()), credentials.getScheme(), authentication
+        new NamedPrincipal(authentication.getUsername()), credentials.getScheme(), authentication
     );
   }
 
