@@ -36,10 +36,13 @@
   <modules>
     <!-- auth -->
     <module>org.thing4.core.auth</module>
+    <module>org.thing4.core.auth.context.jaxrs</module>
+    <module>org.thing4.core.auth.context.servlet</module>
     <module>org.thing4.core.auth.credential.apitoken</module>
     <module>org.thing4.core.auth.credential.cookie</module>
     <module>org.thing4.core.auth.credential.jwt</module>
     <module>org.thing4.core.auth.credential.password</module>
+
 
     <module>org.thing4.core.auth.provider.apitoken</module>
     <module>org.thing4.core.auth.provider.jwt</module>
