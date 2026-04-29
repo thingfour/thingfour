@@ -70,6 +70,7 @@
           <modelPackage>org.thing4.support.openhab.api.client.v31.model</modelPackage>
           <additionalProperties>
             <additionalProperty>openApiNullable=false</additionalProperty>
+            <additionalProperty>hideGenerationTimestamp=true</additionalProperty>
           </additionalProperties>
         </configuration>
         <dependencies>
