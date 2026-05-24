@@ -60,7 +60,18 @@
     <antlr4.version>4.13.1</antlr4.version>
     <xtext.version>2.23.0</xtext.version>
 
+    <!-- graphql -->
+    <reactive-streams.version>1.0.3</reactive-streams.version>
+    <graphql.version>21.5</graphql.version>
+    <graphql-scalars.version>21.0</graphql-scalars.version>
+    <graphql-kickstart.version>14.0.0</graphql-kickstart.version>
+    <graphql-dataloader.version>3.2.1</graphql-dataloader.version>
+
+    <!-- maven plugins / misc -->
     <plexus-component-annotations.version>1.7.1</plexus-component-annotations.version>
+    <log4j2.version>2.14.1</log4j2.version>
+    <openapi-generator.version>5.4.0</openapi-generator.version>
+    <connectorio-openapi-generators.version>${openapi-generator.version}</connectorio-openapi-generators.version>
   </properties>
 
   <dependencyManagement>
@@ -90,6 +101,47 @@
         <version>${bom.version}</version>
         <scope>import</scope>
         <type>pom</type>
+      </dependency>
+
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.apitoken</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.cookie</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.jwt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.credential.password</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.provider.apitoken</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.provider.jwt</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.thing4</groupId>
+        <artifactId>org.thing4.core.auth.provider.local</artifactId>
+        <version>${project.version}</version>
       </dependency>
 
       <dependency>
@@ -204,6 +256,17 @@
         <groupId>org.connectorio.testcontainers</groupId>
         <artifactId>openhab</artifactId>
         <version>${connectorio-testcontainers.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j2.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -337,6 +400,7 @@
         <configuration>
           <systemPropertyVariables>
             <openhab.version>${openhab-distro.version}</openhab.version>
+            <api.version>1.44</api.version>
           </systemPropertyVariables>
         </configuration>
       </plugin>
