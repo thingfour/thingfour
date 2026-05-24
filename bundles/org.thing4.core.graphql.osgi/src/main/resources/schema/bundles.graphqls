@@ -1,0 +1,21 @@
+enum BundleState {
+    Active
+    Installed
+    Resolved
+    Starting
+    Stopping
+    Uninstalled
+}
+
+type Bundle {
+    id: Long!
+    symbolicName: String!
+    name: String
+    state: BundleState
+}
+
+type Query {
+    bundle(id: Long) : Bundle
+    bundles: [Bundle!]
+}
+

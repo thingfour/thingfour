@@ -36,6 +36,7 @@
   <modules>
     <module>org.thing4.itest.core</module>
     <module>org.thing4.itest.core.auth</module>
+    <module>org.thing4.itest.core.graphql</module>
   </modules>
 
   <build>

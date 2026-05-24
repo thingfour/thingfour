@@ -35,6 +35,7 @@
 
   <modules>
     <module>org.thing4.feature.core.auth</module>
+    <module>org.thing4.feature.core.graphql</module>
   </modules>
 
   <profiles>

@@ -35,6 +35,7 @@
 
   <modules>
     <module>org.thing4.kar.core.auth</module>
+    <module>org.thing4.kar.core.graphql</module>
   </modules>
 
   <build>

@@ -48,6 +48,10 @@
     <module>org.thing4.core.auth.provider.jwt</module>
     <module>org.thing4.core.auth.provider.local</module>
 
+    <!-- graphql -->
+    <module>org.thing4.core.graphql</module>
+    <module>org.thing4.core.graphql.osgi</module>
+
     <!-- parser -->
     <module>org.thing4.core.model.facade</module>
     <module>org.thing4.core.parser</module>
